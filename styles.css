@@ -1,0 +1,311 @@
+:root {
+    --color-primario: #e63946; /* Rojo pasión */
+    --color-secundario: #ffb6c1; /* Rosa suave */
+    --color-terciario: #ffc1cc; /* Rosa pastel */
+    --color-fondo: #f7d5e1; /* Lavanda claro */
+    --color-texto: #6d6875; /* Morado grisáceo para contraste */
+    --color-destacado: #d72638; /* Rojo intenso para resaltar */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(#e66465, var(--color-fondo));
+    font-family: cursive;
+    font-size: 0.5rem;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#particles-js {
+    opacity: 0;
+}
+
+#particles-js,
+#corazon {
+    position: fixed;
+    z-index: 1;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100dvw;
+    height: 100dvh;
+}
+
+/* Portada */
+
+#corazon {
+    background: linear-gradient(to right, rgb(197, 106, 236), var(--color-primario));
+    height: 100dvh;
+    width: 100dvw;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#corazon img {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    animation: parpadeo 1s infinite alternate;
+}
+
+#corazon img:hover {
+    transform: scale(1.1);
+}
+
+/* carta */
+#carta {
+    opacity: 0;
+    transition: opacity o.5s ease-in-out, z-index 0.5s step-end;
+    position: absolute;
+    z-index: -1;
+}
+#carta.mostrar{
+    opacity: 1;
+    z-index: 2;
+}
+
+.carta-contenedor {
+    position: relative;
+    background-color: var(--color-terciario);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    width: 500px;
+    height: 350px;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: transform 0.5s ease-in-out;
+}
+.carta-contenedor-wrapper {
+    animation: flotar 1s infinite ease-in-out alternate;
+    display: inline-block;
+}
+.carta-contenedor-wrapper:hover {
+    animation-play-state:paused;
+}
+
+.carta-front,
+.carta-back {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4rem;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    cursor: default;
+}
+.carta-back {
+    background-color: var(--color-terciario);
+    position: relative;
+    transform: rotateY(180deg);
+    border: 2px solid var(--color-primario);
+    border-radius: 10px;
+    z-index: 8;
+}
+
+.tapa-carta {
+    background-color: var(--color-secundario);
+    border-radius: 0 0 10px 10px;
+    position: absolute;
+    width: 100%;
+    height: 49%;
+    bottom: 0;
+    z-index: 9;
+}
+.tapa-carta::after,
+.tapa-carta::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-radius: 0 0 0 6px;
+    border-left: 185px solid transparent;
+    border-bottom: 250px solid var(--color-secundario);
+    rotate: 90deg;
+    top: -210px;
+
+}
+.tapa-carta::after {
+    left: 35px;}
+.tapa-carta::before {
+    position: absolute;
+    transform: rotateX(180deg);
+    right: 35px;
+}
+
+
+/* mensaje */
+
+.nota-oculta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    width: 80%;
+    background-color: var(--color-fondo);
+    z-index: 7;
+    top: 20%;
+    left: 10%;
+    border-radius: 10px;
+    padding: 10px;
+}
+.nota-oculta.animacion {
+    animation: subirBajar 2s ease-in-out 1s forwards;
+}
+
+.mensaje-amor {
+    font-size: 0.8rem;
+    color: var(--color-destacado);
+    text-align: center;
+    padding: 10px;
+    line-height: 1.4;
+    font-weight: bold;
+}
+
+/* aleta */
+
+.borde-aleta {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    width: 500px;
+    height: 300px;
+    background-color: var(--color-primario);
+    clip-path: polygon(45% 55%, 55% 55%, 100% 0, 0 0);
+    border-radius: 10px;
+    z-index: 0;
+    top: 1px;
+    transition: transform 0.5s ease-in-out;
+    transform-origin: top;
+    backface-visibility: visible;
+    z-index: 9;
+}
+.aleta {
+    background-color: var(--color-terciario);
+    position: absolute;
+    clip-path: polygon(45% 55%, 55% 55%, 100% 0, 0 0);
+    border-radius: 5px;
+    width: 495px;
+    height: 295px;
+}   
+.borde-aleta.abrir {
+    transform: rotateX(150deg) translateZ(5px); 
+}
+
+
+/*efecto de giro*/
+.carta-contenedor.girar {
+    transform: rotateY(180deg);
+}
+
+/* diseño boton */
+.boton {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-terciario);
+    color: var(--color-texto);
+    height: 50px;
+    width: 50px;
+    border: 2px solid var(--color-primario);
+    border-radius: 50%;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+.boton:hover {
+    transform: translate(0, -2px);
+}
+.boton img {
+    width: 30px;
+    height: 30px;
+    animation: parpadeo 0.4s ease-in-out infinite alternate;
+}
+
+/* posicionamiento boton */
+#btn-carta {
+    bottom: 3px;
+    right: 4px;
+}
+#btn-sello {
+    z-index: 10;
+}
+
+/* Animaciones */
+
+@keyframes parpadeo {
+    0% {
+        opacity: 0.2;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes flotar {
+    from {
+        transform: translate(0, 2.5px);
+    }
+    to {
+        transform: translate(0, -2.5px);
+    }
+}
+
+@keyframes subirBajar {
+    0% {
+        transform: translateY(0);
+        z-index: 8;
+    }
+    60% {
+        transform: translateY(-490px);
+        z-index: 11;
+        scale: 1.2;
+    }
+    100% {
+        transform: translateY(0);
+        z-index: 11;
+        scale: 1.5;
+    }
+}
